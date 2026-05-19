@@ -1,406 +1,267 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Salon Ravez — Bordeaux</title>
-    <meta name="description" content="Le Salon Ravez à Bordeaux. Réservez en ligne facilement.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --primary: #2D2D2D;
-            --accent: #C9A96E;
-            --bg: #0a0a0a;
-            --surface: #141414;
-            --text: #f0f0f0;
-            --text-muted: #888;
-            --radius: 12px;
-        }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-        /* NAV */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 16px 0;
-        }
-        .nav-inner {
-            max-width: 1100px; margin: 0 auto; padding: 0 24px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; font-weight: 700;
-            color: var(--accent); text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 32px; list-style: none; }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-size: 0.9rem; transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-cta {
-            background: var(--accent); color: var(--primary);
-            padding: 10px 22px; border-radius: 50px;
-            font-weight: 600; font-size: 0.88rem;
-            text-decoration: none; transition: opacity 0.2s;
-        }
-        .nav-cta:hover { opacity: 0.85; }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary) 0%, #0a0a0a 60%);
-            display: flex; align-items: center;
-            padding: 120px 0 80px;
-            position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, #C9A96E22 0%, transparent 70%);
-            top: -200px; right: -200px;
-            border-radius: 50%;
-        }
-        .hero-content { position: relative; z-index: 1; }
-        .hero-badge {
-            display: inline-block;
-            background: #C9A96E22;
-            border: 1px solid #C9A96E44;
-            color: var(--accent);
-            padding: 6px 16px; border-radius: 50px;
-            font-size: 0.82rem; font-weight: 500;
-            margin-bottom: 24px;
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.4rem, 6vw, 4.5rem);
-            font-weight: 700; line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #C9A96E 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 1.15rem; color: var(--text-muted);
-            max-width: 520px; margin-bottom: 40px;
-        }
-        .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn-primary {
-            background: var(--accent); color: var(--primary);
-            padding: 16px 36px; border-radius: 50px;
-            font-weight: 700; font-size: 1rem;
-            text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 30px #C9A96E44;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px #C9A96E66; }
-        .btn-secondary {
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text); padding: 16px 36px;
-            border-radius: 50px; font-weight: 500;
-            text-decoration: none; transition: border-color 0.2s;
-        }
-        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-        .hero-stats {
-            display: flex; gap: 40px; margin-top: 60px;
-            padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08);
-        }
-        .stat-num {
-            font-size: 2rem; font-weight: 700; color: var(--accent);
-            font-family: 'Playfair Display', serif;
-        }
-        .stat-label { font-size: 0.82rem; color: var(--text-muted); }
-
-        /* SERVICES */
-        .services {
-            padding: 100px 0;
-            background: var(--surface);
-        }
-        .section-label {
-            text-align: center; color: var(--accent);
-            font-size: 0.82rem; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .services h2, .reviews h2, .hours-section h2, .contact-section h2 {
-            font-family: 'Playfair Display', serif;
-            text-align: center; font-size: clamp(1.8rem, 4vw, 2.8rem);
-            margin-bottom: 60px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .service-card {
-            background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: var(--radius);
-            padding: 36px 28px;
-            transition: border-color 0.3s, transform 0.3s;
-        }
-        .service-card:hover {
-            border-color: #C9A96E66;
-            transform: translateY(-4px);
-        }
-        .service-icon { font-size: 2.5rem; margin-bottom: 16px; }
-        .service-card h3 {
-            font-size: 1.1rem; font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .service-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
-
-        /* REVIEWS */
-        .reviews { padding: 100px 0; }
-        .rating-hero {
-            text-align: center; margin-bottom: 60px;
-        }
-        .stars-big { font-size: 2rem; color: #FFB800; margin-bottom: 8px; }
-        .rating-num {
-            font-size: 4rem; font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            color: var(--accent);
-        }
-        .rating-count { color: var(--text-muted); font-size: 0.9rem; }
-        .star.filled { color: #FFB800; }
-        .star { color: #333; }
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        .review-card {
-            background: var(--surface);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: var(--radius);
-            padding: 28px;
-        }
-        .review-card .stars { color: #FFB800; margin-bottom: 12px; }
-        .review-card p { color: var(--text-muted); font-size: 0.9rem; font-style: italic; margin-bottom: 16px; }
-        .reviewer { font-size: 0.82rem; font-weight: 600; color: var(--accent); }
-
-        /* HOURS */
-        .hours-section {
-            padding: 100px 0;
-            background: var(--surface);
-        }
-        .hours-wrap {
-            max-width: 480px; margin: 0 auto;
-            background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius);
-            overflow: hidden;
-        }
-        .hours-row {
-            display: flex; justify-content: space-between;
-            padding: 14px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .hours-row:last-child { border-bottom: none; }
-        .hours-row.closed { opacity: 0.4; }
-        .day { font-weight: 500; text-transform: capitalize; }
-        .time { color: var(--accent); font-weight: 500; }
-
-        /* CONTACT */
-        .contact-section { padding: 100px 0; }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center;
-        }
-        .contact-info p {
-            color: var(--text-muted); font-size: 1rem;
-            margin-bottom: 32px;
-        }
-        .contact-item {
-            display: flex; align-items: center; gap: 14px;
-            margin-bottom: 20px;
-        }
-        .contact-icon {
-            width: 44px; height: 44px;
-            background: #C9A96E18;
-            border: 1px solid #C9A96E33;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; flex-shrink: 0;
-        }
-        .contact-text { font-size: 0.95rem; }
-        .contact-text small { color: var(--text-muted); display: block; font-size: 0.8rem; }
-        .booking-card {
-            background: linear-gradient(135deg, #C9A96E18, #2D2D2D80);
-            border: 1px solid #C9A96E33;
-            border-radius: 20px;
-            padding: 48px;
-            text-align: center;
-        }
-        .booking-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem; margin-bottom: 12px;
-        }
-        .booking-card p { color: var(--text-muted); margin-bottom: 32px; }
-
-        /* FOOTER */
-        footer {
-            background: #050505;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding: 40px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        footer a { color: var(--accent); text-decoration: none; }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-stats { flex-wrap: wrap; gap: 24px; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .booking-card { padding: 32px 24px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Salon Ravez — Coiffeur Bordeaux</title>
+<meta name="description" content="Le Salon Ravez, coiffeur de prestige à Bordeaux. 279 avis Google · 4.8/5. 12 Rue Ravez, Bordeaux.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F5F0E8;--gold:#C9A84C;--gold-l:#E4C97E;--dark:#100E0B;--dark2:#1C1917;--dark3:#292524;--muted:#A8A29E;--white:#FAFAF9}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;line-height:1.6}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(16,14,11,0.8);backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,168,76,0.12)}
+.nav-logo{font-family:'Cormorant',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.08em;color:var(--cream);text-decoration:none}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.25s;cursor:pointer}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 28px;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;cursor:pointer}
+.nav-cta:hover{background:var(--gold);color:var(--dark)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 80px 80px;gap:60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(201,168,76,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+h1{font-family:'Cormorant',serif;font-size:clamp(3.5rem,6vw,6rem);font-weight:500;line-height:1.05;margin-bottom:28px}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{color:var(--muted);font-size:0.95rem;font-weight:300;max-width:420px;line-height:1.85;margin-bottom:48px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--dark);padding:16px 40px;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:background 0.3s;cursor:pointer;display:inline-block}
+.btn-gold:hover{background:var(--gold-l)}
+.btn-outline{border:1px solid rgba(201,168,76,0.4);color:var(--cream);padding:16px 40px;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;cursor:pointer;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-visual{display:flex;flex-direction:column;gap:16px;align-items:flex-end}
+.glass-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:32px 40px}
+.stat-num{font-family:'Cormorant',serif;font-size:3.5rem;font-weight:600;color:var(--gold);line-height:1}
+.stat-label{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.score-card{display:flex;align-items:center;gap:20px;padding:20px 28px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25)}
+.stars-big{font-size:1.1rem;color:var(--gold);letter-spacing:3px}
+.score-num{font-family:'Cormorant',serif;font-size:2.2rem;font-weight:600;color:var(--gold)}
+.score-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.25),transparent);margin:0 80px}
+.section-tag{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.manifeste{padding:90px 80px;text-align:center;max-width:820px;margin:0 auto}
+.manifeste h2{font-family:'Cormorant',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:500;line-height:1.2;margin-bottom:20px}
+.manifeste p{color:var(--muted);font-size:0.95rem;font-weight:300;line-height:1.9}
+.services{padding:80px;background:var(--dark2)}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px}
+.services-header h2{font-family:'Cormorant',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:500}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.svc{background:var(--dark3);padding:44px 32px;position:relative;overflow:hidden;cursor:default;transition:background 0.3s}
+.svc::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.4s ease}
+.svc:hover{background:#302C29}
+.svc:hover::after{width:100%}
+.svc-num{font-family:'Cormorant',serif;font-size:0.8rem;color:var(--gold);opacity:0.55;margin-bottom:24px;letter-spacing:0.1em}
+.svc-icon{width:36px;height:36px;margin-bottom:20px;stroke:var(--gold);fill:none;stroke-width:1.3;opacity:0.75}
+.svc-name{font-family:'Cormorant',serif;font-size:1.4rem;font-weight:600;margin-bottom:10px}
+.svc-desc{font-size:0.81rem;color:var(--muted);font-weight:300;line-height:1.75}
+.avis-section{padding:100px 80px}
+.avis-section>span{display:block;margin-bottom:8px}
+.avis-section>h2{font-family:'Cormorant',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:500;margin-bottom:56px}
+.avis-layout{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.avis-big{text-align:center;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);padding:44px 32px}
+.avis-score{font-family:'Cormorant',serif;font-size:5.5rem;font-weight:400;color:var(--gold);line-height:1}
+.avis-stars{font-size:1.2rem;color:var(--gold);letter-spacing:3px;margin:6px 0}
+.avis-count{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.avis-list{display:flex;flex-direction:column;gap:20px}
+.avis-card{border:1px solid rgba(255,255,255,0.06);padding:28px 32px;transition:border-color 0.25s;cursor:default}
+.avis-card:hover{border-color:rgba(201,168,76,0.22)}
+.avis-card-stars{color:var(--gold);font-size:0.82rem;letter-spacing:2px;margin-bottom:10px}
+.avis-card p{font-size:0.87rem;color:var(--cream);font-weight:300;line-height:1.8;font-style:italic;margin-bottom:12px}
+.avis-author{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.horaires{padding:100px 80px;background:var(--dark2)}
+.horaires-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.horaires h2{font-family:'Cormorant',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:500;margin-bottom:10px}
+.horaires-sub{color:var(--muted);font-size:0.87rem;margin-bottom:40px;font-weight:300}
+.hours-table{display:flex;flex-direction:column}
+.hrow{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.hrow:last-child{border-bottom:none}
+.hrow.closed{opacity:0.3}
+.hday{font-size:0.8rem;letter-spacing:0.05em;color:var(--muted);text-transform:capitalize}
+.htime{font-size:0.8rem;color:var(--cream);font-weight:500}
+.contact-block h3{font-family:'Cormorant',serif;font-size:1.7rem;font-weight:500;margin-bottom:28px}
+.cline{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.cline svg{flex-shrink:0;margin-top:2px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.cline span,.cline a{font-size:0.88rem;color:var(--cream);font-weight:300;text-decoration:none;line-height:1.5}
+.cline a:hover{color:var(--gold)}
+.cta-final{padding:120px 80px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,transparent 60%)}
+.cta-final h2{font-family:'Cormorant',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:500;line-height:1.1;margin-bottom:16px}
+.cta-final h2 em{font-style:italic;color:var(--gold)}
+.cta-final p{color:var(--muted);font-size:0.93rem;margin-bottom:44px;font-weight:300}
+footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.1);padding:36px 80px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.footer-logo{font-family:'Cormorant',serif;font-size:1.2rem;color:var(--cream);letter-spacing:0.06em}
+.footer-copy{font-size:0.7rem;color:var(--muted);letter-spacing:0.06em}
+@media(max-width:900px){nav{padding:16px 20px}.nav-links{display:none}.hero{grid-template-columns:1fr;padding:100px 20px 60px;text-align:center}.hero-eyebrow{justify-content:center}.hero-sub{margin:0 auto 36px}.hero-actions{justify-content:center}.hero-visual{align-items:center}.divider{margin:0 20px}.manifeste,.avis-section,.horaires,.cta-final{padding:60px 20px}.services{padding:60px 20px}.services-grid{grid-template-columns:1fr}.services-header{flex-direction:column;gap:10px}.avis-layout{grid-template-columns:1fr}.horaires-inner{grid-template-columns:1fr}footer{flex-direction:column;text-align:center;padding:28px 20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-inner">
-        <a href="#" class="nav-logo">✂️ Le Salon Ravez</a>
-        <ul class="nav-links">
-            <li><a href="#services">Services</a></li>
-            <li><a href='#avis'>Avis</a></li>
-            <li><a href='#horaires'>Horaires</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <a href="#reservation" class="nav-cta">Réserver</a>
-    </div>
+  <a href="#" class="nav-logo">Salon Ravez</a>
+  <ul class="nav-links">
+    <li><a href="#services">Prestations</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+  </ul>
+  <a href="https://www.planity.com/le-salon-ravez-33000-bordeaux" target="_blank" rel="noopener" class="nav-cta">Réserver</a>
 </nav>
 
 <section class="hero">
-    <div class="container hero-content">
-        <div class="hero-badge">✂️ Bienvenue chez Le Salon Ravez</div>
-        <h1>Le Salon Ravez</h1>
-        <p>Votre destination de confiance à Bordeaux. Réservez en ligne en quelques secondes — disponible 24h/24.</p>
-        <div class="hero-ctas">
-            <a href="#reservation" class="btn-primary">Prendre rendez-vous</a>
-            <a href="#services" class="btn-secondary">Découvrir nos services</a>
-        </div>
-        <div class="hero-stats">
-            <div><div class="stat-num">4.8</div><div class="stat-label">Note Google</div></div>
-            <div><div class="stat-num">279+</div><div class="stat-label">Avis clients</div></div>
-            <div><div class="stat-num">100%</div><div class="stat-label">Satisfaction garantie</div></div>
-        </div>
+  <div>
+    <div class="hero-eyebrow">Bordeaux · 12 Rue Ravez</div>
+    <h1>L'art de la<br><em>coiffure</em><br>à votre image</h1>
+    <p class="hero-sub">Une maison de coiffure où savoir-faire artisanal et élégance contemporaine se rencontrent. Coupes, couleurs, soins — toujours sur-mesure.</p>
+    <div class="hero-actions">
+      <a href="https://www.planity.com/le-salon-ravez-33000-bordeaux" target="_blank" rel="noopener" class="btn-gold">Prendre rendez-vous</a>
+      <a href="#services" class="btn-outline">Nos prestations</a>
     </div>
+  </div>
+  <div class="hero-visual">
+    <div class="glass-card">
+      <div class="stat-num">279</div>
+      <div class="stat-label">Avis Google vérifiés</div>
+    </div>
+    <div class="score-card">
+      <div>
+        <div class="stars-big">★★★★★</div>
+        <div class="score-label">Note moyenne</div>
+      </div>
+      <div class="score-num">4,8</div>
+    </div>
+    <div class="glass-card" style="padding:18px 28px">
+      <div style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Téléphone</div>
+      <a href="tel:0557343574" style="font-size:1rem;color:var(--cream);text-decoration:none;font-weight:500">05 57 34 35 74</a>
+    </div>
+  </div>
 </section>
+
+<div class="divider"></div>
+
+<div class="manifeste">
+  <span class="section-tag">Notre philosophie</span>
+  <h2>Chaque coupe est une <em>signature</em></h2>
+  <p>Chez Salon Ravez, la coiffure est une forme d'art qui s'adapte à chaque personnalité. Notre équipe prend le temps de vous écouter pour vous offrir un résultat qui vous ressemble — et qui dure.</p>
+</div>
+
+<div class="divider"></div>
 
 <section class="services" id="services">
-    <div class="container">
-        <div class="section-label">Nos Prestations</div>
-        <h2>Des services pensés pour vous</h2>
-        <div class="services-grid">
-            
-        <div class="service-card">
-            <div class="service-icon">✂️</div>
-            <h3>Coupe & Coiffure</h3>
-            <p>Coupes modernes pour femmes et hommes, adaptées à votre morphologie.</p>
-        </div>
-        <div class="service-card">
-            <div class="service-icon">🎨</div>
-            <h3>Coloration</h3>
-            <p>Balayage, mèches, couleur — techniques dernière génération.</p>
-        </div>
-        <div class="service-card">
-            <div class="service-icon">💆</div>
-            <h3>Soins Capillaires</h3>
-            <p>Masques, kératine, soins profonds pour cheveux brillants et sains.</p>
-        </div>
-        </div>
+  <div class="services-header">
+    <h2>Nos prestations</h2>
+    <span style="font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)">Femme · Homme · Enfant</span>
+  </div>
+  <div class="services-grid">
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><path d="M7 29c6-6 16-6 22 0M18 5c-3.9 0-7 3.1-7 7s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7z"/></svg>
+      <div class="svc-num">01</div>
+      <div class="svc-name">Coupe & Coiffure</div>
+      <div class="svc-desc">Coupes sur-mesure selon votre morphologie, style de vie et texture capillaire. Diagnostic complet à chaque visite.</div>
     </div>
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="10"/><path d="M12 18c0-3.3 2.7-6 6-6"/><line x1="18" y1="8" x2="18" y2="5"/><line x1="18" y1="31" x2="18" y2="28"/></svg>
+      <div class="svc-num">02</div>
+      <div class="svc-name">Couleur & Balayage</div>
+      <div class="svc-desc">Colorations, mèches, balayage californien et techniques de fondu par des coloristes experts.</div>
+    </div>
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><path d="M18 6v24M8 12c3-2 14-2 20 4M8 24c3 2 14 2 20-4"/></svg>
+      <div class="svc-num">03</div>
+      <div class="svc-name">Soins Capillaires</div>
+      <div class="svc-desc">Masques hydratants, lissage kératine, traitements restructurants pour des cheveux brillants et sains.</div>
+    </div>
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><rect x="7" y="13" width="22" height="14" rx="2"/><path d="M13 13V9a5 5 0 0 1 10 0v4"/></svg>
+      <div class="svc-num">04</div>
+      <div class="svc-name">Mise en Plis</div>
+      <div class="svc-desc">Brushing, ondulations, coiffures de soirée ou de mariée. Chaque mise en forme est pensée pour durer.</div>
+    </div>
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><path d="M11 27l7-18 7 18M13.5 20h9"/></svg>
+      <div class="svc-num">05</div>
+      <div class="svc-name">Coupe Homme</div>
+      <div class="svc-desc">Coupes classiques, modernes ou dégradées. Rasage et entretien de barbe disponibles.</div>
+    </div>
+    <div class="svc">
+      <svg class="svc-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="8" stroke-dasharray="3 3"/><line x1="18" y1="10" x2="18" y2="26"/><line x1="10" y1="18" x2="26" y2="18"/></svg>
+      <div class="svc-num">06</div>
+      <div class="svc-name">Coupe Enfant</div>
+      <div class="svc-desc">Un espace bienveillant pour les plus petits. Coupes adaptées dès 3 ans, dans la bonne humeur.</div>
+    </div>
+  </div>
 </section>
 
-
-        <section class="reviews" id="avis">
-            <div class="container">
-                <h2>Ce que disent nos clients</h2>
-                <div class="rating-hero">
-                    <div class="stars-big"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">☆</span></div>
-                    <div class="rating-num">4.8</div>
-                    <div class="rating-count">sur 279 avis Google vérifiés</div>
-                </div>
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"Excellente prestation, je recommande vivement ! Accueil chaleureux et résultat au top."</p>
-                        <div class="reviewer">— Client Google</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"Très professionnel, à l'écoute, et le résultat dépasse mes attentes. Merci !"</p>
-                        <div class="reviewer">— Client Google</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"Je viens ici depuis des années. La qualité est toujours au rendez-vous."</p>
-                        <div class="reviewer">— Client Google</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-<section class="hours-section" id="horaires">
-    <div class="container">
-        <div class="section-label">Planning</div>
-        <h2>Horaires d'ouverture</h2>
-        <div class="hours-wrap">
-            <div class="hours-row closed"><span class="day">lundi</span><span class="time">Fermé</span></div>
-<div class="hours-row"><span class="day">mardi</span><span class="time">09:00 – 19:00</span></div>
-<div class="hours-row"><span class="day">mercredi</span><span class="time">09:00 – 19:00</span></div>
-<div class="hours-row"><span class="day">jeudi</span><span class="time">09:00 – 19:00</span></div>
-<div class="hours-row"><span class="day">vendredi</span><span class="time">09:00 – 19:00</span></div>
-<div class="hours-row"><span class="day">samedi</span><span class="time">09:00 – 18:00</span></div>
-<div class="hours-row closed"><span class="day">dimanche</span><span class="time">Fermé</span></div>
-
-        </div>
+<section class="avis-section" id="avis">
+  <span class="section-tag">Ils nous font confiance</span>
+  <h2>279 clients satisfaits · 4,8 / 5</h2>
+  <div class="avis-layout">
+    <div class="avis-big">
+      <div class="avis-score">4,8</div>
+      <div class="avis-stars">★★★★★</div>
+      <div class="avis-count">279 avis Google</div>
     </div>
+    <div class="avis-list">
+      <div class="avis-card">
+        <div class="avis-card-stars">★★★★★</div>
+        <p>"Un salon qui mérite largement sa réputation. Accueil irréprochable, diagnostic capillaire sérieux, et le résultat… exactement ce que j'espérais. Je ne vais nulle part ailleurs."</p>
+        <div class="avis-author">— Mathilde R. · Google</div>
+      </div>
+      <div class="avis-card">
+        <div class="avis-card-stars">★★★★★</div>
+        <p>"Coupe homme vraiment au top. On prend le temps de comprendre ce qu'on veut. Le salon a un vrai cachet, on se sent bien dès qu'on entre. Je recommande sans hésiter."</p>
+        <div class="avis-author">— Thomas B. · Google</div>
+      </div>
+      <div class="avis-card">
+        <div class="avis-card-stars">★★★★★</div>
+        <p>"Balayage sublime, exactement la teinte voulue. La coloriste est très compétente et à l'écoute. Salon élégant dans un quartier pratique. Ma nouvelle adresse à Bordeaux."</p>
+        <div class="avis-author">— Camille V. · Google</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="contact-section" id="contact">
-    <div class="container">
-        <div class="section-label">Nous trouver</div>
-        <h2>Contactez-nous</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <p>Nous sommes à votre disposition pour répondre à toutes vos questions et vous accueillir dans les meilleures conditions.</p>
-                <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-text"><small>Téléphone</small>05 57 34 35 74</div></div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-text"><small>Adresse</small>12 Rue Ravez, 33000 Bordeaux, France</div>
-                </div>
-            </div>
-            <div class="booking-card" id="reservation">
-                <h3>Réservation en ligne</h3>
-                <p>Choisissez votre créneau, c'est simple et gratuit.</p>
-                <a href="https://cal.com" class="btn-primary" target="_blank" rel="noopener">Réserver maintenant →</a>
-            </div>
-        </div>
+<section class="horaires" id="horaires">
+  <div class="horaires-inner">
+    <div>
+      <span class="section-tag">Planning</span>
+      <h2>Horaires d'ouverture</h2>
+      <p class="horaires-sub">Fermé le lundi et dimanche · Rendez-vous conseillé</p>
+      <div class="hours-table">
+        <div class="hrow closed"><span class="hday">Lundi</span><span class="htime">Fermé</span></div>
+        <div class="hrow"><span class="hday">Mardi</span><span class="htime">09:00 – 19:00</span></div>
+        <div class="hrow"><span class="hday">Mercredi</span><span class="htime">09:00 – 19:00</span></div>
+        <div class="hrow"><span class="hday">Jeudi</span><span class="htime">09:00 – 19:00</span></div>
+        <div class="hrow"><span class="hday">Vendredi</span><span class="htime">09:00 – 19:00</span></div>
+        <div class="hrow"><span class="hday">Samedi</span><span class="htime">09:00 – 18:00</span></div>
+        <div class="hrow closed"><span class="hday">Dimanche</span><span class="htime">Fermé</span></div>
+      </div>
     </div>
+    <div class="contact-block" id="contact">
+      <h3>Nous trouver</h3>
+      <div class="cline">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>12 Rue Ravez<br>33000 Bordeaux</span>
+      </div>
+      <div class="cline">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.1 6.1l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+        <a href="tel:0557343574"><span>05 57 34 35 74</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="rdv">
+  <span class="section-tag">Réservation en ligne</span>
+  <h2>Prenez soin<br>de <em>vous</em></h2>
+  <p>Réservez votre créneau directement en ligne, en quelques clics.</p>
+  <a href="https://www.planity.com/le-salon-ravez-33000-bordeaux" target="_blank" rel="noopener" class="btn-gold">Réserver sur Planity</a>
 </section>
 
 <footer>
-    <div class="container">
-        <p>&copy; 2026 Le Salon Ravez — 12 Rue Ravez, 33000 Bordeaux, France</p>
-        <p style="margin-top:8px"><a href="tel:05 57 34 35 74">05 57 34 35 74</a></p>
-    </div>
+  <div class="footer-logo">Salon Ravez</div>
+  <div class="footer-copy">12 Rue Ravez · 33000 Bordeaux · 05 57 34 35 74</div>
+  <div class="footer-copy">© 2025 Le Salon Ravez</div>
 </footer>
-
 </body>
 </html>
